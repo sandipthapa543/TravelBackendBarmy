@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 require('dotenv').config();
-
+const userRoute = require('./route/userRoute')
 const app = express();
 
 const db = require("./model");
@@ -14,7 +14,7 @@ db.sequelize.sync();
 // });
 
 app.use(bodyParser.json());
-app.use(morgan('combined'))
+app.use(morgan('dev'))
 app.use(express.static(`${__dirname}/public`));
 app.use(cors({origin: '*'}));
 
@@ -27,8 +27,12 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome to Travel Application." });
 });
 
+app.use('/user',userRoute)
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
+
+module.exports = app

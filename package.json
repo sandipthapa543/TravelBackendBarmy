@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha UnitTest/userTest.js"
   },
   "keywords": [],
   "author": "",
@@ -12,9 +12,11 @@
   "description": "",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mocha": "^8.0.1",
     "morgan": "^1.10.0",
     "pg": "^8.2.1",
     "pg-hstore": "^2.3.3",
