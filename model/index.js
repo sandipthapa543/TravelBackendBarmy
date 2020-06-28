@@ -21,6 +21,10 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.users = require("./user.model.js")(sequelize, Sequelize);
+
+
+=======
 db.packages = require("./admin.package.js")(sequelize, Sequelize);
 db.activities = require("./admin.activities.js")(sequelize, Sequelize);
+
 module.exports = db;
