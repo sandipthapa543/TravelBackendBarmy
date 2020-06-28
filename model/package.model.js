@@ -4,36 +4,40 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    Days: {
+    Slug: {
       type: Sequelize.STRING,
+      allowNull: false,
+    },
+    Days: {
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     Price: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     Includes: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
     Excludes: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
     Itinerary: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
     Image: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
     Difficulty_level: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     Description: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
     Country: {
@@ -45,11 +49,11 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
     },
     Activity_id: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     Accomodation: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
     Highest_point: {
@@ -61,7 +65,7 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
     },
     Gears_required: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
   });

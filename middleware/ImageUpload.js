@@ -2,7 +2,7 @@ const multer = require("multer");
 
 var packagestorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./public/uploads/packages");
+    cb(null, "./public/uploads/packages/");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + file.originalname);

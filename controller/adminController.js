@@ -1,9 +1,13 @@
 const db = require("../model/index");
+const slugify = require("slugify");
 //Package class
 class Packages {
   addPackage(req, res) {
     var pack = {
-      Package_Name: req.body.package_name,
+      Package_Name: req.body.name,
+      Slug: slugify(req.body.name, {
+        lower: true
+      }),
       Days: req.body.days,
       Price: req.body.price,
       Includes: req.body.includes,
@@ -18,15 +22,15 @@ class Packages {
       Highest_point: req.body.highest_point,
       Starting_point: req.body.starting_point,
       Gears_required: req.body.gears_required,
-      Image: req.body.image,
+      Image: req.file.filename,
     };
-    db.packages.create(pack);
-    // .then((package) => {
-    //   res
-    //     .status(201)
-    //     .json({ message: "Package added successfully", package });
-    // })
-    // .catch((err) => res.send(err));
+    db.packages.create(pack)
+    .then(newpack => {
+      res
+        .status(201)
+        .json({ message: "Package added successfully", newpack });
+    })
+    .catch((err) => res.send(err));
   }
 }
 module.exports = Packages;

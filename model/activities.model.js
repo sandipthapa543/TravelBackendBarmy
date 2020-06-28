@@ -4,12 +4,16 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    Contents: {
+    Slug: {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    Contents: {
+      type: Sequelize.TEXT,
+      allowNull: false,
+    },
     Image: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
   });

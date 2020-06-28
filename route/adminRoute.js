@@ -2,90 +2,65 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const routes = express.Router();
 const { check, validationResult } = require("express-validator");
-const adminController = require("../controller/adminPackageController");
+const adminController = require("../controller/adminController");
+const img = require('../middleware/ImageUpload')
 const packDetails = new adminController();
 
 const validateAllFields = () => [
   //* Package name validation
-  check("package_name")
+  check("name")
     .notEmpty()
     .withMessage("Please enter Package Name")
-    .isAlpha()
-    .withMessage("Name must contain alphabets")
-    // .isLength({ min: 3 })
+    .isLength({ min: 3 })
     .withMessage("Name must contain atleast 3 alphabets"),
 
   //* Days validation
   check("days")
     .notEmpty()
     .withMessage("Please enter days")
-    .isAlpha()
-    .withMessage("Name must contain digits"),
-  // .isLength({ min: 3 })
-  // .withMessage("Name must contain atleast 3 alphabets")
+    .isNumeric()
+    .withMessage("Days must contain digits"),
 
   //* Price validation
   check("price")
     .notEmpty()
     .withMessage("Please enter price")
-    .isAlpha()
-    .withMessage("Name must contain alphabets"),
+    .isNumeric()
+    .withMessage("Price must contain digits only"),
   // .isLength({ min: 3 })
   //.withMessage("Name must contain atleast 3 alphabets")
 
   //* Package name valaidation
   check("includes")
     .notEmpty()
-    .withMessage("Please enter includes")
-    .isAlpha()
-    .withMessage("Name must contain alphabets")
-    // .isLength({ min: 3 })
-    .withMessage("Name must contain atleast 3 alphabets"),
+    .withMessage("Please enter includes"),
 
   //* excludes validation
   check("excludes")
     .notEmpty()
-    .withMessage("Please enter excludes")
-    .isAlpha()
-    .withMessage("Name must contain alphabets")
-    // .isLength({ min: 3 })
-    .withMessage("Name must contain atleast 3 alphabets"),
+    .withMessage("Please enter excludes"),
 
   //* itinerary  validation
   check("itinerary")
     .notEmpty()
-    .withMessage("Please enter itinerary")
-    .isAlpha()
-    .withMessage("Name must contain alphabets")
-    // .isLength({ min: 3 })
-    .withMessage("Name must contain atleast 3 alphabets"),
+    .withMessage("Please enter itinerary"),
 
   //* difficulty_level validation
   check("difficulty_level")
     .notEmpty()
-    .withMessage("Please enter difficulty_level")
-    .isAlpha()
-    .withMessage("Name must contain alphabets"),
-  // .isLength({ min: 3 })
-  //.withMessage("Name must contain atleast 3 alphabets"),
+    .withMessage("Please enter difficulty_level"),
 
   //* description validation
   check("description")
     .notEmpty()
-    .withMessage("Please enter description")
-    .isAlpha()
-    .withMessage("Name must contain alphabets"),
+    .withMessage("Please enter description"),
   // .isLength({ min: 3 })
   //.withMessage("Name must contain atleast 3 alphabets"),
 
   //* country name validation
   check("country")
     .notEmpty()
-    .withMessage("Please enter Country Name")
-    .isAlpha()
-    .withMessage("Name must contain alphabets"),
-  // .isLength({ min: 3 })
-  // .withMessage("Name must contain atleast 3 alphabets"),
+    .withMessage("Please enter Country Name"),
 
   //* best_season validation
   check("best_season")
@@ -100,8 +75,8 @@ const validateAllFields = () => [
   check("activity_id")
     .notEmpty()
     .withMessage("Please enter activity_id")
-    .isAlpha()
-    .withMessage("Name must contain alphabets"),
+    .isNumeric()
+    .withMessage("Activity id must be digits only"),
   // .isLength({ min: 3 })
   // .withMessage("Name must contain atleast 3 alphabets"),
 
@@ -142,15 +117,12 @@ const validateAllFields = () => [
   //.withMessage("Name must contain atleast 3 alphabets"),
 
   //* image validation
-  check("image").notEmpty().withMessage("Please select image").isAlpha(),
-  //.withMessage("Name must contain alphabets")
-  // .isLength({ min: 3 })
-  // .withMessage("Name must contain atleast 3 alphabets"),
+  // check("image").notEmpty().withMessage("Please select image"),
 ];
 
 //* post  form api router
 
-routes.post("/admin/package", validateAllFields(), (req, res) => {
+routes.post("/package", img.packageImage, validateAllFields(), (req, res) => {
   const error = validationResult(req); //* field validation request
 
   if (!error.isEmpty()) {
