@@ -150,7 +150,7 @@ const validateAllFields = () => [
 
 //* post  form api router
 
-routes.post("/package", validateAllFields(), (req, res) => {
+routes.post("/admin/package", validateAllFields(), (req, res) => {
   const error = validationResult(req); //* field validation request
 
   if (!error.isEmpty()) {
