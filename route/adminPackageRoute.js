@@ -6,7 +6,7 @@ const adminController = require("../controller/adminPackageController");
 const packDetails = new adminController();
 
 const validateAllFields = () => [
-  //* Package name valaidation
+  //* Package name validation
   check("package_name")
     .notEmpty()
     .withMessage("Please enter Package Name")
@@ -15,7 +15,7 @@ const validateAllFields = () => [
     // .isLength({ min: 3 })
     .withMessage("Name must contain atleast 3 alphabets"),
 
-  //* Days valaidation
+  //* Days validation
   check("days")
     .notEmpty()
     .withMessage("Please enter days")
@@ -24,7 +24,7 @@ const validateAllFields = () => [
   // .isLength({ min: 3 })
   // .withMessage("Name must contain atleast 3 alphabets")
 
-  //* Price valaidation
+  //* Price validation
   check("price")
     .notEmpty()
     .withMessage("Please enter price")
@@ -32,6 +32,7 @@ const validateAllFields = () => [
     .withMessage("Name must contain alphabets"),
   // .isLength({ min: 3 })
   //.withMessage("Name must contain atleast 3 alphabets")
+
   //* Package name valaidation
   check("includes")
     .notEmpty()
@@ -41,7 +42,7 @@ const validateAllFields = () => [
     // .isLength({ min: 3 })
     .withMessage("Name must contain atleast 3 alphabets"),
 
-  //* excludes valaidation
+  //* excludes validation
   check("excludes")
     .notEmpty()
     .withMessage("Please enter excludes")
@@ -50,7 +51,7 @@ const validateAllFields = () => [
     // .isLength({ min: 3 })
     .withMessage("Name must contain atleast 3 alphabets"),
 
-  //* itinerary  valaidation
+  //* itinerary  validation
   check("itinerary")
     .notEmpty()
     .withMessage("Please enter itinerary")
@@ -59,7 +60,7 @@ const validateAllFields = () => [
     // .isLength({ min: 3 })
     .withMessage("Name must contain atleast 3 alphabets"),
 
-  //* difficulty_level valaidation
+  //* difficulty_level validation
   check("difficulty_level")
     .notEmpty()
     .withMessage("Please enter difficulty_level")
@@ -68,7 +69,7 @@ const validateAllFields = () => [
   // .isLength({ min: 3 })
   //.withMessage("Name must contain atleast 3 alphabets"),
 
-  //* description valaidation
+  //* description validation
   check("description")
     .notEmpty()
     .withMessage("Please enter description")
@@ -77,7 +78,7 @@ const validateAllFields = () => [
   // .isLength({ min: 3 })
   //.withMessage("Name must contain atleast 3 alphabets"),
 
-  //* country name valaidation
+  //* country name validation
   check("country")
     .notEmpty()
     .withMessage("Please enter Country Name")
@@ -86,7 +87,7 @@ const validateAllFields = () => [
   // .isLength({ min: 3 })
   // .withMessage("Name must contain atleast 3 alphabets"),
 
-  //* best_season valaidation
+  //* best_season validation
   check("best_season")
     .notEmpty()
     .withMessage("Please enter best_season")
@@ -95,7 +96,7 @@ const validateAllFields = () => [
   // .isLength({ min: 3 })
   // .withMessage("Name must contain atleast 3 alphabets"),
 
-  //* activity_id valaidation
+  //* activity_id validation
   check("activity_id")
     .notEmpty()
     .withMessage("Please enter activity_id")
@@ -104,7 +105,7 @@ const validateAllFields = () => [
   // .isLength({ min: 3 })
   // .withMessage("Name must contain atleast 3 alphabets"),
 
-  //* accomodation valaidation
+  //* accomodation validation
   check("accomodation")
     .notEmpty()
     .withMessage("Please enter accomodation")
@@ -113,7 +114,7 @@ const validateAllFields = () => [
   // .isLength({ min: 3 })
   //.withMessage("Name must contain atleast 3 alphabets"),
 
-  //* highest_point valaidation
+  //* highest_point validation
   check("highest_point")
     .notEmpty()
     .withMessage("Please enter highest_point")
@@ -122,7 +123,7 @@ const validateAllFields = () => [
   // .isLength({ min: 3 })
   //.withMessage("Name must contain atleast 3 alphabets"),
 
-  //*starting_point valaidation
+  //*starting_point validation
   check("starting_point")
     .notEmpty()
     .withMessage("Please enter starting_point")
@@ -131,7 +132,7 @@ const validateAllFields = () => [
   // .isLength({ min: 3 })
   // .withMessage("Name must contain atleast 3 alphabets"),
 
-  //* gears_required valaidation
+  //* gears_required validation
   check("gears_required")
     .notEmpty()
     .withMessage("Please enter gears_required")
@@ -140,7 +141,7 @@ const validateAllFields = () => [
   // .isLength({ min: 3 })
   //.withMessage("Name must contain atleast 3 alphabets"),
 
-  //* image valaidation
+  //* image validation
   check("image").notEmpty().withMessage("Please select image").isAlpha(),
   //.withMessage("Name must contain alphabets")
   // .isLength({ min: 3 })
