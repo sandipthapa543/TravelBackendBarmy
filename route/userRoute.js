@@ -67,4 +67,7 @@ routes.post("/register", validateAllFields(), (req, res) => {
   userDetails.registerUser(req, res);
 });
 
+routes.post("/login", (req, res) => {
+  userDetails.logIn(req, res);
+});
 module.exports = routes;

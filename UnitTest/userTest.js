@@ -1,4 +1,4 @@
-const { expect } = require("chai");
+const { expect, assert } = require("chai");
 const request = require('supertest')
 const app = (require("../app"));
 
@@ -38,6 +38,7 @@ describe("Register TDD", () => {
         Contact_No: "9876543210",
       })
       .then((result) => {
+          assert.equal(result.First_Name,"Om Krishna");
         expect(result.First_Name).to.equal("Om Krishna");
         expect(result.Last_Name).to.equal("Thapa");
         expect(result.Email).to.equal("othapa@gmail.com");
@@ -45,6 +46,12 @@ describe("Register TDD", () => {
       });
   });
 });
+
+describe("Empty the table", () => {
+    it("It should clean the database", () => {
+    return db.sequelize.sync({ force: true })
+    })
+})
 
 describe("Login TDD", () => {
   // User registration test
