@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const routes = express.Router();
-
+const { check, validationResult } = require("express-validator");
 const adminController = require("../controller/adminPackageController");
 const packDetails = new adminController();
 

@@ -20,14 +20,13 @@ class Packages {
       Gears_required: req.body.gears_required,
       Image: req.body.image,
     };
-    db.packages
-      .create(pack)
-      .then((package) => {
-        res
-          .status(201)
-          .json({ message: "Package added successfully", package });
-      })
-      .catch((err) => res.send(err));
+    db.packages.create(pack);
+    // .then((package) => {
+    //   res
+    //     .status(201)
+    //     .json({ message: "Package added successfully", package });
+    // })
+    // .catch((err) => res.send(err));
   }
 }
 module.exports = Packages;
