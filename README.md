@@ -9,6 +9,6 @@
 
 ## TDD
 
-- Use `npm start` to start the test
+- Use `npm test` to start the test
 
 _Thank You_
