@@ -8,6 +8,7 @@ require("dotenv").config();
 
 const app = express();
 const adminRoute = require("./route/adminRoute");
+const packageRoute = require("./route/packageRoute");
 const db = require("./model");
 db.sequelize.sync();
 
@@ -36,7 +37,7 @@ app.get("/", (req, res) => {
 app.use('/user',userRoute)
 
 app.use("/admin", adminRoute);
-
+app.use("/package", packageRoute);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

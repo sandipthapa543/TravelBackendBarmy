@@ -1,5 +1,7 @@
 const bcrypt = require("bcryptjs");
 const db = require("../model/index");
+const jwt = require('jsonwebtoken');
+require("dotenv").config();
 
 class Users {
   //* Sign Up API users Post request and response
@@ -33,8 +35,8 @@ class Users {
   // eslint-disable-next-line class-methods-use-this
   logIn(req, res) {
     const userValidation = {
-      email: req.body.email,
-      password: req.body.password,
+      email: req.body.Email,
+      password: req.body.Password,
     };
 
     //* verify user attempt to login
@@ -53,7 +55,7 @@ class Users {
           userValidation.password,
           result.Password).then(response => {
             if (response) {
-              const token = jwt.sign({ email: result.Email }, process.env.SECRET, {
+              const token = jwt.sign({ id: result.id, email: result.Email }, process.env.SECRET, {
                 expiresIn: "7d",
               });
               res.status(200).json({
@@ -70,6 +72,17 @@ class Users {
           }
         ).catch(err=>console.log(err))
     });
+  }
+  
+  userMe(req,res){
+    try {
+      res.status(200).json(req.user);
+    } catch (err) {
+      res.status(400).json({
+        status: "Failure",
+        message: err
+      });
+    }
   }
 }
 //* export class Users for Routing API
