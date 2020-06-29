@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const routes = express.Router();
-
+const auth = require('../middleware/auth')
 const { check, validationResult } = require("express-validator");
 // const checkToken = require('../middleware/auth');
 //* import userController file from controller package
@@ -70,4 +70,6 @@ routes.post("/register", validateAllFields(), (req, res) => {
 routes.post("/login", (req, res) => {
   userDetails.logIn(req, res);
 });
+
+routes.get("/me",auth.verifyUser,userDetails.userMe);
 module.exports = routes;

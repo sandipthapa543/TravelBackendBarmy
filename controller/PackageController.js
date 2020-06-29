@@ -15,7 +15,9 @@ class Package {
 
     singleActivity(req,res) {
         db.activities.findOne({where: {Slug: req.params.slug}}).then(result => {
-            res.send(result)
+            db.packages.findAll({where: {Activity_id: result.id}}).then( final => {
+                res.json({result, final})
+            })
         }).catch(err=>res.send(err))
     }
 }
