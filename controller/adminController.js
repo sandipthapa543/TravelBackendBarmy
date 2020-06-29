@@ -1,12 +1,12 @@
 const db = require("../model/index");
 const slugify = require("slugify");
-//Package class
-class Packages {
+//Admin class
+class Admin {
   addPackage(req, res) {
     var pack = {
       Package_Name: req.body.name,
       Slug: slugify(req.body.name, {
-        lower: true
+        lower: true,
       }),
       Days: req.body.days,
       Price: req.body.price,
@@ -24,13 +24,34 @@ class Packages {
       Gears_required: req.body.gears_required,
       Image: req.file.filename,
     };
-    db.packages.create(pack)
-    .then(newpack => {
-      res
-        .status(201)
-        .json({ message: "Package added successfully", newpack });
-    })
-    .catch((err) => res.send(err));
+    db.packages
+      .create(pack)
+      .then((newpack) => {
+        res
+          .status(201)
+          .json({ message: "Package added successfully", newpack });
+      })
+      .catch((err) => res.send(err));
+  }
+
+  addActivity(req, res) {
+    var newAct = {
+      Activity_Name: req.body.name,
+      Slug: slugify(req.body.name, {
+        lower: true,
+      }),
+      Contents: req.body.description,
+      Image: req.file.filename,
+    };
+
+    db.activities
+      .create(newAct)
+      .then((result) => {
+        res
+          .status(201)
+          .json({ message: "Activity added successfully", result });
+      })
+      .catch((err) => res.send(err));
   }
 }
-module.exports = Packages;
+module.exports = Admin;

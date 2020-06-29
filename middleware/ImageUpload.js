@@ -9,6 +9,15 @@ var packagestorage = multer.diskStorage({
   },
 });
 
+var activitystorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/uploads/activities/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
 const fileFilter = (req, file, cb) => {
   if (!file.originalname.match(/\.(JPG|JPEG|PNG|GIF|jpg|jpeg|png|gif)$/)) {
     return cb(new Error("Please upload only image files!"), false);
@@ -17,5 +26,10 @@ const fileFilter = (req, file, cb) => {
 };
 
 var packageupload = multer({ storage: packagestorage, fileFilter: fileFilter });
+var activityupload = multer({
+  storage: activitystorage,
+  fileFilter: fileFilter,
+});
 
 exports.packageImage = packageupload.single("image");
+exports.activityImage = activityupload.single("image");

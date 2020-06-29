@@ -3,10 +3,10 @@ const bodyParser = require("body-parser");
 const routes = express.Router();
 const { check, validationResult } = require("express-validator");
 const adminController = require("../controller/adminController");
-const img = require('../middleware/ImageUpload')
+const img = require("../middleware/ImageUpload");
 const packDetails = new adminController();
 
-const validateAllFields = () => [
+const validateSomeFields = () => [
   //* Package name validation
   check("name")
     .notEmpty()
@@ -14,6 +14,11 @@ const validateAllFields = () => [
     .isLength({ min: 3 })
     .withMessage("Name must contain atleast 3 alphabets"),
 
+  //* description validation
+  check("description").notEmpty().withMessage("Please enter description"),
+];
+
+const validateAllFields = () => [
   //* Days validation
   check("days")
     .notEmpty()
@@ -27,47 +32,28 @@ const validateAllFields = () => [
     .withMessage("Please enter price")
     .isNumeric()
     .withMessage("Price must contain digits only"),
-  // .isLength({ min: 3 })
-  //.withMessage("Name must contain atleast 3 alphabets")
 
   //* Package name valaidation
-  check("includes")
-    .notEmpty()
-    .withMessage("Please enter includes"),
+  check("includes").notEmpty().withMessage("Please enter includes"),
 
   //* excludes validation
-  check("excludes")
-    .notEmpty()
-    .withMessage("Please enter excludes"),
+  check("excludes").notEmpty().withMessage("Please enter excludes"),
 
   //* itinerary  validation
-  check("itinerary")
-    .notEmpty()
-    .withMessage("Please enter itinerary"),
+  check("itinerary").notEmpty().withMessage("Please enter itinerary"),
 
   //* difficulty_level validation
   check("difficulty_level")
     .notEmpty()
-    .withMessage("Please enter difficulty_level"),
-
-  //* description validation
-  check("description")
-    .notEmpty()
-    .withMessage("Please enter description"),
-  // .isLength({ min: 3 })
-  //.withMessage("Name must contain atleast 3 alphabets"),
+    .withMessage("Please enter difficulty_level")
+    .isNumeric()
+    .withMessage("Enter 1-5 for difficulty level"),
 
   //* country name validation
-  check("country")
-    .notEmpty()
-    .withMessage("Please enter Country Name"),
+  check("country").notEmpty().withMessage("Please enter Country Name"),
 
   //* best_season validation
-  check("best_season")
-    .notEmpty()
-    .withMessage("Please enter best_season")
-    .isAlpha()
-    .withMessage("Name must contain alphabets"),
+  check("best_season").notEmpty().withMessage("Please enter best_season"),
   // .isLength({ min: 3 })
   // .withMessage("Name must contain atleast 3 alphabets"),
 
@@ -81,54 +67,47 @@ const validateAllFields = () => [
   // .withMessage("Name must contain atleast 3 alphabets"),
 
   //* accomodation validation
-  check("accomodation")
-    .notEmpty()
-    .withMessage("Please enter accomodation")
-    .isAlpha()
-    .withMessage("Name must contain alphabets"),
-  // .isLength({ min: 3 })
-  //.withMessage("Name must contain atleast 3 alphabets"),
+  check("accomodation").notEmpty().withMessage("Please enter accomodation"),
 
   //* highest_point validation
-  check("highest_point")
-    .notEmpty()
-    .withMessage("Please enter highest_point")
-    .isAlpha()
-    .withMessage("Name must contain alphabets"),
-  // .isLength({ min: 3 })
-  //.withMessage("Name must contain atleast 3 alphabets"),
+  check("highest_point").notEmpty().withMessage("Please enter highest_point"),
 
   //*starting_point validation
-  check("starting_point")
-    .notEmpty()
-    .withMessage("Please enter starting_point")
-    .isAlpha()
-    .withMessage("Name must contain alphabets"),
-  // .isLength({ min: 3 })
-  // .withMessage("Name must contain atleast 3 alphabets"),
+  check("starting_point").notEmpty().withMessage("Please enter starting_point"),
 
   //* gears_required validation
-  check("gears_required")
-    .notEmpty()
-    .withMessage("Please enter gears_required")
-    .isAlpha()
-    .withMessage("Name must contain alphabets"),
-  // .isLength({ min: 3 })
-  //.withMessage("Name must contain atleast 3 alphabets"),
-
-  //* image validation
-  // check("image").notEmpty().withMessage("Please select image"),
+  check("gears_required").notEmpty().withMessage("Please enter gears_required"),
 ];
 
 //* post  form api router
 
-routes.post("/package", img.packageImage, validateAllFields(), (req, res) => {
-  const error = validationResult(req); //* field validation request
+routes.post(
+  "/package",
+  img.packageImage,
+  validateSomeFields(),
+  validateAllFields(),
+  (req, res) => {
+    const error = validationResult(req); //* field validation request
 
-  if (!error.isEmpty()) {
-    return res.status(400).json(error.array());
+    if (!error.isEmpty()) {
+      return res.status(400).json(error.array());
+    }
+    packDetails.addPackage(req, res);
   }
-  packDetails.addPackage(req, res);
-});
+);
+
+routes.post(
+  "/activity",
+  img.activityImage,
+  validateSomeFields(),
+  (req, res) => {
+    const error = validationResult(req); //* field validation request
+
+    if (!error.isEmpty()) {
+      return res.status(400).json(error.array());
+    }
+    packDetails.addActivity(req, res);
+  }
+);
 
 module.exports = routes;

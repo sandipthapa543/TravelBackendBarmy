@@ -20,7 +20,7 @@ const sequelize = new Sequelize(
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-db.activities = require("../model/admin.activities.js")(sequelize, Sequelize);
+db.activities = require("../model/activities.model")(sequelize, Sequelize);
 db.sequelize.sync();
 
 describe("Admin add Activity", () => {
@@ -32,12 +32,14 @@ describe("Admin add Activity", () => {
         Activity_Name: "Hiking",
         Contents: "whatcontent?",
         Image: "youWish",
+        Slug: "hiking",
       })
       .then((result) => {
         assert.equal(result.Activity_Name, "Hiking");
         expect(result.Activity_Name).to.equal("Hiking");
         expect(result.Contents).to.equal("whatcontent?");
         expect(result.Image).to.equal("youWish");
+        expect(result.Slug).to.equal("hiking");
       });
   });
 });
