@@ -35,8 +35,8 @@ class Users {
   // eslint-disable-next-line class-methods-use-this
   logIn(req, res) {
     const userValidation = {
-      email: req.body.email,
-      password: req.body.password,
+      email: req.body.Email,
+      password: req.body.Password,
     };
 
     //* verify user attempt to login
