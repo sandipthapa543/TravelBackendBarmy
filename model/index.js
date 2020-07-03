@@ -24,5 +24,6 @@ db.users = require("./user.model.js")(sequelize, Sequelize);
 
 db.packages = require("./package.model.js")(sequelize, Sequelize);
 db.activities = require("./activities.model.js")(sequelize, Sequelize);
+db.blogs = require("./blog.model")(sequelize, Sequelize);
 
 module.exports = db;

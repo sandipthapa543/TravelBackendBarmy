@@ -1,14 +1,16 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const morgan = require("morgan")
-require('dotenv').config();
-const userRoute = require('./route/userRoute')
+const morgan = require("morgan");
+require("dotenv").config();
+const userRoute = require("./route/userRoute");
 require("dotenv").config();
 
 const app = express();
 const adminRoute = require("./route/adminRoute");
 const packageRoute = require("./route/packageRoute");
+const blogRoute = require("./route/blogRoute");
+
 const db = require("./model");
 db.sequelize.sync();
 
@@ -18,7 +20,7 @@ db.sequelize.sync();
 
 app.use(bodyParser.json());
 
-app.use(morgan('dev'))
+app.use(morgan("dev"));
 
 // app.use(morgan("combined"));
 
@@ -33,17 +35,16 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to Travel Application." });
 });
 
-
-app.use('/user',userRoute)
+app.use("/user", userRoute);
 
 app.use("/admin", adminRoute);
 app.use("/package", packageRoute);
+app.use("/blog", blogRoute);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
+  console.log(`Server is running on port ${PORT}.`);
 });
 
-module.exports = app
-
+module.exports = app;

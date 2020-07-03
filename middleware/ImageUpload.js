@@ -18,6 +18,15 @@ var activitystorage = multer.diskStorage({
   },
 });
 
+var blogstorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/uploads/blogs/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
 const fileFilter = (req, file, cb) => {
   if (!file.originalname.match(/\.(JPG|JPEG|PNG|GIF|jpg|jpeg|png|gif)$/)) {
     return cb(new Error("Please upload only image files!"), false);
@@ -31,5 +40,11 @@ var activityupload = multer({
   fileFilter: fileFilter,
 });
 
+var blogupload = multer({
+  storage: blogstorage,
+  fileFilter: fileFilter,
+});
+
 exports.packageImage = packageupload.single("image");
 exports.activityImage = activityupload.single("image");
+exports.blogImage = blogupload.single("image");
