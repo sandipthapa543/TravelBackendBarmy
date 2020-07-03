@@ -20,7 +20,7 @@ const sequelize = new Sequelize(
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-db.blogs = require("../model/add.blog")(sequelize, Sequelize);
+db.blogs = require("../model/blog.model")(sequelize, Sequelize);
 db.sequelize.sync();
 
 describe("User adding blog", () => {

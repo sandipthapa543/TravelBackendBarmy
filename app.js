@@ -39,7 +39,7 @@ app.use("/user", userRoute);
 
 app.use("/admin", adminRoute);
 app.use("/package", packageRoute);
-app.use("/ublog", blogRoute);
+app.use("/blog", blogRoute);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     Likes: {
       type: Sequelize.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
   });
 
