@@ -42,4 +42,23 @@ describe("Admin add Activity", () => {
         expect(result.Slug).to.equal("hiking");
       });
   });
+  it("Should update the Activity", () => {
+    db.activities.update(
+      {
+        Activity_Name: "Trek",
+      },
+      {
+        where: { id: 20 },
+        returning: true,
+        plain: true,
+      }
+    );
+  });
+
+  it("Should delete the Activity", () => {
+    db.activities.destroy({
+      where: { id: 21 },
+      // truncate: true,
+    });
+  });
 });
