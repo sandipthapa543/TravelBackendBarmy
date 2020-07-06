@@ -32,7 +32,7 @@ exports.verifyAdmin = (req, res, next) => {
     err.status = 401;
     return next(err);
   }
-  if (req.user.user_type === "admin") {
+  if (req.user.isUser === true) {
     next();
   } else {
     err = "ERROR 403! NO ACCESS";

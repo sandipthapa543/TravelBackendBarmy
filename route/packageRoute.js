@@ -4,8 +4,13 @@ const packageController = require("../controller/packageController");
 
 const package = new packageController();
 
-routes.get('/show', package.allPackage)
-routes.get('/activity/:slug', package.singleActivity)
-routes.get('/activity', package.allActivity)
+routes.get("/show", package.allPackage);
+routes.get("/activity/:slug", package.singleActivity);
+routes.get("/activity", package.allActivity);
 
-module.exports = routes
+routes
+  .route("/single/:id")
+  .get(package.onePackage)
+  
+
+module.exports = routes;

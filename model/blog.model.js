@@ -4,6 +4,11 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    Slug: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      primaryKey: true
+    },
     Contents: {
       type: Sequelize.TEXT,
       allowNull: false,

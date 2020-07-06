@@ -37,7 +37,7 @@ class Admin {
   addActivity(req, res) {
     var newAct = {
       Activity_Name: req.body.name,
-      Slug: slugify(req.body.slug, {
+      Slug: slugify(req.body.name, {
         lower: true,
       }),
       Contents: req.body.description,
@@ -52,6 +52,29 @@ class Admin {
           .json({ message: "Activity added successfully", result });
       })
       .catch((err) => res.send(err));
+  }
+
+  validateUpdate(req, res, next){
+    !req.body.slug ? new Error("Please provide slug") : req.body.slug;
+    next();
+  };
+
+  updatePackage(req,res) {
+    db.packages.findByPk(req.params.id).then(result => {
+      // Check if record exists in db
+      if (result) {
+        console.log(result.Package_Name)
+        result.Package_Name = req.body.Package_Name
+        result.update()
+        .then(res.send(result)).catch(err=>res.send(err))
+      }
+      // else{
+      //   res.send("No package available")
+      // }
+    })
+    // const pack = db.packages.findByPk(req.params.id);
+
+    // console.log(pack)
   }
 }
 module.exports = Admin;

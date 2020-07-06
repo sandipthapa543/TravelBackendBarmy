@@ -4,7 +4,7 @@ const routes = express.Router();
 const { check, validationResult } = require("express-validator");
 const adminController = require("../controller/adminController");
 const img = require("../middleware/ImageUpload");
-const packDetails = new adminController();
+const admin = new adminController();
 
 const validateSomeFields = () => [
   //* Package name validation
@@ -92,9 +92,12 @@ routes.post(
     if (!error.isEmpty()) {
       return res.status(400).json(error.array());
     }
-    packDetails.addPackage(req, res);
+    admin.addPackage(req, res);
   }
 );
+
+routes.route("/package/:id").patch(admin.updatePackage)
+// .delete(admin.deleteProduct)
 
 routes.post(
   "/activity",
@@ -106,7 +109,7 @@ routes.post(
     if (!error.isEmpty()) {
       return res.status(400).json(error.array());
     }
-    packDetails.addActivity(req, res);
+    admin.addActivity(req, res);
   }
 );
 

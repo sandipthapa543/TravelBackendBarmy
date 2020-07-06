@@ -24,6 +24,16 @@ routes
     }
     blogDetails.addBlog(req, res);
   })
-routes.get("/all",blogDetails.allBlogs);
+  routes.get("/all",blogDetails.allBlogs);
+
+
+// routes.route("/single/:id").get(blogDetails.oneBlog).patch(validateAllFields(), (req, res) => {
+//   const error = validationResult(req); //* field validation request
+
+//   if (!error.isEmpty()) {
+//     return res.status(400).json(error.array());
+//   }
+//   blogDetails.addBlog(req, res)
+// })
 
 module.exports = routes;

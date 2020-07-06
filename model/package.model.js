@@ -7,6 +7,7 @@ module.exports = (sequelize, Sequelize) => {
     Slug: {
       type: Sequelize.STRING,
       allowNull: false,
+      primaryKey: true
     },
     Days: {
       type: Sequelize.INTEGER,
