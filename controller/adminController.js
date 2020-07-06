@@ -37,7 +37,7 @@ class Admin {
   addActivity(req, res) {
     var newAct = {
       Activity_Name: req.body.name,
-      Slug: slugify(req.body.name, {
+      Slug: slugify(req.body.slug, {
         lower: true,
       }),
       Contents: req.body.description,

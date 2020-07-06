@@ -10,7 +10,7 @@ class Blog {
     };
     db.blogs
       .create(log)
-      .then((oblog) => {
+      .then((blog) => {
         res.status(201).json({ message: "Blog added successfully", oblog });
       })
       .catch((err) => res.send(err));

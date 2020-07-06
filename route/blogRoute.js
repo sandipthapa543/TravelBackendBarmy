@@ -24,6 +24,6 @@ routes
     }
     blogDetails.addBlog(req, res);
   })
-  .get(blogDetails.allBlogs);
+routes.get("/all",blogDetails.allBlogs);
 
 module.exports = routes;
