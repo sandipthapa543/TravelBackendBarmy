@@ -26,4 +26,9 @@ db.packages = require("./package.model.js")(sequelize, Sequelize);
 db.activities = require("./activities.model.js")(sequelize, Sequelize);
 db.blogs = require("./blog.model")(sequelize, Sequelize);
 
+db.activities.hasMany(db.packages, {foreignKey: 'activityId'});
+db.packages.belongsTo(db.activities, {foreignKey: 'activityId'});
+
+db.users.hasMany(db.blogs, {foreignKey: 'user_id'});
+db.blogs.belongsTo(db.users, {foreignKey: 'user_id'});
 module.exports = db;

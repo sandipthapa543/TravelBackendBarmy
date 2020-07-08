@@ -3,6 +3,7 @@ const slugify = require("slugify");
 //Admin class
 class Admin {
   addPackage(req, res) {
+    console.log(req.body)
     var pack = {
       Package_Name: req.body.name,
       Slug: slugify(req.body.name, {
@@ -17,7 +18,7 @@ class Admin {
       Description: req.body.description,
       Country: req.body.country,
       Best_season: req.body.best_season,
-      Activity_id: req.body.activity_id,
+      activityId: req.body.activity_id,
       Accomodation: req.body.accomodation,
       Highest_point: req.body.highest_point,
       Starting_point: req.body.starting_point,

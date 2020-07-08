@@ -3,7 +3,7 @@ const db = require("../model/index");
 class Package {
   allPackage(req, res) {
     db.packages
-      .findAll()
+      .findAll({ include: db.activities })
       .then((result) => {
         res.send(result);
       })
@@ -17,9 +17,7 @@ class Package {
       .catch((err) => res.status(500).send(err));
   }
 
-  updatePackage(req,res,id) {
-      
-  }
+  updatePackage(req, res, id) {}
 
   allActivity(req, res) {
     db.activities
@@ -32,15 +30,23 @@ class Package {
 
   singleActivity(req, res) {
     db.activities
-      .findOne({ where: { Slug: req.params.slug } })
+      .findAll({ where: { Slug: req.params.slug }, include: db.packages })
       .then((result) => {
-        db.packages
-          .findAll({ where: { Activity_id: result.id } })
-          .then((final) => {
-            res.json({ result, final });
-          });
+        res.send(result);
       })
       .catch((err) => res.send(err));
+
+    //     db.activities
+    //     .findAll({ where: { Slug: req.params.slug }})
+    //   .then((result) => {
+    //     db.packages
+    //       .findAll({ where: { activityId: result.id } })
+    //       .then((final) => {
+    //         res.json({ result, final });
+    //       });
+    //   })
+    //   .catch((err) => res.send(err));
+    
   }
 }
 

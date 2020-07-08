@@ -1,5 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
   const Activity = sequelize.define("activity", {
+    id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
     Activity_Name: {
       type: Sequelize.STRING,
       allowNull: false,

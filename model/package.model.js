@@ -1,5 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
   const Package = sequelize.define("package", {
+    id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
     Package_Name: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -49,10 +55,6 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    Activity_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
     Accomodation: {
       type: Sequelize.TEXT,
       allowNull: false,
@@ -69,6 +71,11 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.TEXT,
       allowNull: false,
     },
+    activityId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      foreignKey: true
+    }
   });
   return Package;
 };

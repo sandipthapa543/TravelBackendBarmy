@@ -23,7 +23,7 @@ class Blog {
   }
 
   allBlogs(req,res) {
-    db.blogs.findAll().then(result => res.status(200).send(result)).catch(err=>res.send(err))
+    db.blogs.findAll({include: db.users}).then(result => res.status(200).send(result)).catch(err=>res.send(err))
   }
 
   oneBlog(req,res) {
