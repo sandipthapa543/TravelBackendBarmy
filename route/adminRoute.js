@@ -113,4 +113,6 @@ routes.post(
   }
 );
 
+routes.put("/:id",admin.updateActivity);
+
 module.exports = routes;

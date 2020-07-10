@@ -77,5 +77,29 @@ class Admin {
 
     // console.log(pack)
   }
+  updateActivity(req,res){
+    db.activities.update(req.body,{ where: { id:req.params.id}
+
+    })
+        .then(result => {
+          if(result){
+            res.send({
+              message:'successfully updated'
+            })
+          }
+          else{
+            res.send({
+              message:'cannot find id or req,body'
+            })
+
+          }
+
+        })
+        .catch(err => {
+          res.status(500).send({
+            message: 'error updating with id =' +id
+          });
+        });
+  };
 }
 module.exports = Admin;
