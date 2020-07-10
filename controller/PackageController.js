@@ -21,7 +21,7 @@ class Package {
 
   allActivity(req, res) {
     db.activities
-      .findAll()
+      .findAll({include: db.packages})
       .then((result) => {
         res.send(result);
       })
@@ -30,7 +30,7 @@ class Package {
 
   singleActivity(req, res) {
     db.activities
-      .findAll({ where: { Slug: req.params.slug }, include: db.packages })
+      .findOne({ where: { Slug: req.params.slug }, include: db.packages })
       .then((result) => {
         res.send(result);
       })

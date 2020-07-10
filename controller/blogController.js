@@ -27,7 +27,7 @@ class Blog {
   }
 
   oneBlog(req,res) {
-    db.blogs.findByPk(req.params.id).then(result => res.status(201).send(result)).catch(err=>res.send(err))
+    db.blogs.findOne({where: {Slug: req.params.slug}, include: db.users}).then(result => res.status(201).send(result)).catch(err=>res.send(err))
   }
 }
 module.exports = Blog;
