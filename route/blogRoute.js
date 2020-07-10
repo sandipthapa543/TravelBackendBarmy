@@ -25,6 +25,7 @@ routes
     blogDetails.addBlog(req, res);
   })
   routes.get("/all",blogDetails.allBlogs);
+  routes.get("/:slug",blogDetails.oneBlog);
 
 
 // routes.route("/single/:id").get(blogDetails.oneBlog).patch(validateAllFields(), (req, res) => {
