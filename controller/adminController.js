@@ -77,29 +77,22 @@ class Admin {
 
     // console.log(pack)
   }
-  updateActivity(req,res){
-    db.activities.update(req.body,{ where: { id:req.params.id}
-
+  updateActivity(req,res,next) {
+    db.activities.update({ where: {id: req.params.id}}
+    ).
+    then(function(result) {
+      res.json(result)
     })
-        .then(result => {
-          if(result){
-            res.send({
-              message:'successfully updated'
-            })
-          }
-          else{
-            res.send({
-              message:'cannot find id or req,body'
-            })
+        .catch(next)
+  }
+  deleteActivity(req,res,next) {
+    db.activities.destroy({ where: {id: req.params.id}}
 
-          }
-
-        })
-        .catch(err => {
-          res.status(500).send({
-            message: 'error updating with id =' +id
-          });
-        });
-  };
+    ).
+    then(function(result) {
+      res.json(result)
+    })
+        .catch(next)
+  }
 }
 module.exports = Admin;
