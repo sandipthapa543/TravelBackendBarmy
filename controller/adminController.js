@@ -79,11 +79,10 @@ class Admin {
   }
 
   updateActivity(req, res, next) {
-    db.activities.findByPk(req.params.id).then((result) => {
-      return result.update(req.body);
-    }).then((result) => {
-      res.json('hell' + result.id);
-    });
+    db.activities.update(req.body,{where:{id:req.params.id},returning:true, plain: true}).then(result =>{
+      res.json(result)
+    })
+
   }
 
   deleteActivity(req,res,next) {
