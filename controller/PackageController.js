@@ -3,7 +3,12 @@ const db = require("../model/index");
 class Package {
   allPackage(req, res) {
     db.packages
-      .findAll({ include: db.activities })
+      .findAll({
+        offset: req.query.skip,
+        limit: req.query.limit,
+        order: [[req.query.sort, req.query.order]],
+        include: db.activities,
+      })
       .then((result) => {
         res.send(result);
       })
@@ -12,16 +17,14 @@ class Package {
 
   onePackage(req, res) {
     db.packages
-      .findByPk(req.params.id)
+      .findOne({ where: { Slug: req.params.slug }, include: db.activities })
       .then((result) => res.status(200).send(result))
       .catch((err) => res.status(500).send(err));
   }
 
-  updatePackage(req, res, id) {}
-
   allActivity(req, res) {
     db.activities
-      .findAll({include: db.packages})
+      .findAll({ limit: req.query.limit, include: db.packages })
       .then((result) => {
         res.send(result);
       })
@@ -35,18 +38,6 @@ class Package {
         res.send(result);
       })
       .catch((err) => res.send(err));
-
-    //     db.activities
-    //     .findAll({ where: { Slug: req.params.slug }})
-    //   .then((result) => {
-    //     db.packages
-    //       .findAll({ where: { activityId: result.id } })
-    //       .then((final) => {
-    //         res.json({ result, final });
-    //       });
-    //   })
-    //   .catch((err) => res.send(err));
-    
   }
 }
 

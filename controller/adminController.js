@@ -3,7 +3,7 @@ const slugify = require("slugify");
 //Admin class
 class Admin {
   addPackage(req, res) {
-    console.log(req.body)
+    console.log(req.body);
     var pack = {
       Package_Name: req.body.name,
       Slug: slugify(req.body.name, {
@@ -26,13 +26,13 @@ class Admin {
       Image: req.file.filename,
     };
     db.packages
-        .create(pack)
-        .then((newpack) => {
-          res
-              .status(201)
-              .json({message: "Package added successfully", newpack});
-        })
-        .catch((err) => res.send(err));
+      .create(pack)
+      .then((newpack) => {
+        res
+          .status(201)
+          .json({ message: "Package added successfully", newpack });
+      })
+      .catch((err) => res.send(err));
   }
 
   addActivity(req, res) {
@@ -46,54 +46,57 @@ class Admin {
     };
 
     db.activities
-        .create(newAct)
-        .then((result) => {
-          res
-              .status(201)
-              .json({message: "Activity added successfully", result});
-        })
-        .catch((err) => res.send(err));
+      .create(newAct)
+      .then((result) => {
+        res
+          .status(201)
+          .json({ message: "Activity added successfully", result });
+      })
+      .catch((err) => res.send(err));
   }
 
   validateUpdate(req, res, next) {
     !req.body.slug ? new Error("Please provide slug") : req.body.slug;
     next();
-  };
+  }
 
   updatePackage(req, res) {
-    db.packages.findByPk(req.params.id).then(result => {
-      // Check if record exists in db
-      if (result) {
-        console.log(result.Package_Name)
-        result.Package_Name = req.body.Package_Name
-        result.update()
-            .then(res.send(result)).catch(err => res.send(err))
-      }
-      // else{
-      //   res.send("No package available")
-      // }
-    })
-    // const pack = db.packages.findByPk(req.params.id);
-
-    // console.log(pack)
+    db.packages
+      .findByPk(req.params.id)
+      .then((result) => {
+        // Check if record exists in db
+        if (result) {
+          console.log(result.Package_Name);
+          result
+            .update(req.body)
+            .then((pckg) => res.send(pckg))
+            .catch((err) => res.send(err));
+        }
+      })
+      .catch((err) => res.send(err));
   }
 
   updateActivity(req, res, next) {
-    db.activities.update(req.body,{where:{id:req.params.id},returning:true, plain: true}).then(result =>{
-      res.json(result)
-    })
-
+    db.activities
+      .findByPk(req.params.id)
+      .then((result) => {
+        if (result) {
+          result
+            .update(req.body)
+            .then((act) => res.send(act))
+            .catch((err) => res.send(err));
+        }
+      })
+      .catch((err) => res.send(err));
   }
 
-  deleteActivity(req,res,next) {
-    db.activities.destroy({ where: {id: req.params.id}}
-
-    ).
-    then(function(result) {
-      res.json(result)
-    })
-        .catch(next)
+  deleteActivity(req, res, next) {
+    db.activities
+      .destroy({ where: { id: req.params.id } })
+      .then(function (result) {
+        res.json(result);
+      })
+      .catch(next);
   }
-
 }
 module.exports = Admin;
