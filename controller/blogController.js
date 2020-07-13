@@ -29,5 +29,14 @@ class Blog {
   oneBlog(req,res) {
     db.blogs.findOne({where: {Slug: req.params.slug}, include: db.users}).then(result => res.status(201).send(result)).catch(err=>res.send(err))
   }
+  singleBlog(req,res) {
+    db.blogs.findOne({where: {id: req.params.id}, include: db.users}).then(result => res.status(201).send(result)).catch(err=>res.send(err))
+  }
+
+  updateBlog(req,res){
+    db.blogs.update(req.body,{where:{id:req.params.id}},{include:db.users})
+        .then(result => res.status(200).send(result))
+        .catch(err=> res.send(err))
+  }
 }
 module.exports = Blog;
