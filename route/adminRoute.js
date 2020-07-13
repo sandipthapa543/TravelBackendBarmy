@@ -115,5 +115,6 @@ routes.post(
 
 routes.put('/:id',admin.updateActivity);
 routes.delete("/:id",admin.deleteActivity);
-
+routes.put('/packages/:id',admin.updatePackage);
+routes.delete('/packages/:id',admin.deletePackages);
 module.exports = routes;

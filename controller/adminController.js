@@ -61,21 +61,15 @@ class Admin {
   };
 
   updatePackage(req, res) {
-    db.packages.findByPk(req.params.id).then(result => {
-      // Check if record exists in db
-      if (result) {
-        console.log(result.Package_Name)
-        result.Package_Name = req.body.Package_Name
-        result.update()
-            .then(res.send(result)).catch(err => res.send(err))
-      }
-      // else{
-      //   res.send("No package available")
-      // }
+    db.packages.update(req.body,{where:{id:req.params.id},returning:true, plain: true},{ include: db.activities }).then(result =>{
+      res.json(result)
     })
-    // const pack = db.packages.findByPk(req.params.id);
+  }
 
-    // console.log(pack)
+  deletePackages(req,res){
+    db.packages.destroy({where:{id:req.params.id}}).then(result =>{
+      res.json(result)
+    })
   }
 
   updateActivity(req, res, next) {
