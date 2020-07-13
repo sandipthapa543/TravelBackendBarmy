@@ -61,19 +61,15 @@ class Admin {
   }
 
   updatePackage(req, res) {
-    db.packages
-      .findByPk(req.params.id)
-      .then((result) => {
-        // Check if record exists in db
-        if (result) {
-          console.log(result.Package_Name);
-          result
-            .update(req.body)
-            .then((pckg) => res.send(pckg))
-            .catch((err) => res.send(err));
-        }
-      })
-      .catch((err) => res.send(err));
+    db.packages.update(req.body,{where:{id:req.params.id},returning:true, plain: true},{ include: db.activities }).then(result =>{
+      res.json(result)
+    })
+  }
+
+  deletePackages(req,res){
+    db.packages.destroy({where:{id:req.params.id}}).then(result =>{
+      res.json(result)
+    })
   }
 
   updateActivity(req, res, next) {
