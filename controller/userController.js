@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const db = require("../model/index");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
+const { response } = require("express");
 require("dotenv").config();
 
 class Users {
@@ -31,7 +32,7 @@ class Users {
     });
   }
 
-//* login api with jsonwebtoken users Post request and response
+  //* login api with jsonwebtoken users Post request and response
   // eslint-disable-next-line class-methods-use-this
   logIn(req, res) {
     const userValidation = {
@@ -41,23 +42,29 @@ class Users {
 
     //* verify user attempt to login
     // eslint-disable-next-line consistent-return
-    db.users.findOne({ where: { Email: userValidation.email }}).then(result => {
-      // console.log(result)
-      if (result === null) {
-        res.status(400).json({
-          success: false,
-          message: "Email does not exist.",
-        });
-        return
-      }
+    db.users
+      .findOne({ where: { Email: userValidation.email } })
+      .then((result) => {
+        // console.log(result)
+        if (result === null) {
+          res.status(400).json({
+            success: false,
+            message: "Email does not exist.",
+          });
+          return;
+        }
         console.log("Entered");
-        bcrypt.compare(
-          userValidation.password,
-          result.Password).then(response => {
+        bcrypt
+          .compare(userValidation.password, result.Password)
+          .then((response) => {
             if (response) {
-              const token = jwt.sign({ id: result.id, email: result.Email }, process.env.SECRET, {
-                expiresIn: "7d",
-              });
+              const token = jwt.sign(
+                { id: result.id, email: result.Email },
+                process.env.SECRET,
+                {
+                  expiresIn: "7d",
+                }
+              );
               res.status(200).json({
                 status: "Login success!",
                 token,
@@ -69,20 +76,46 @@ class Users {
                 message: "Invalid Password.",
               });
             }
-          }
-        ).catch(err=>console.log(err))
-    });
+          })
+          .catch((err) => console.log(err));
+      });
   }
-  
-  userMe(req,res){
+
+  userMe(req, res) {
     try {
       res.status(200).json(req.user);
     } catch (err) {
       res.status(400).json({
         status: "Failure",
-        message: err
+        message: err,
       });
     }
+  }
+
+  postInquiry(req, res) {
+    db.inquiries
+      .create({
+        user_id: req.user.id,
+        package_id: req.body.package_id,
+        People: req.body.People,
+        Message: req.body.Message,
+      })
+      .then((inquiry) => {
+        res.status(201).json({ message: "Inquiry added", inquiry });
+      })
+      .catch((err) => res.send(err));
+  }
+  myInquiry(req, res) {
+    db.inquiries
+      .findAll({ where: { user_id: req.user.id }, include: db.packages })
+      .then((result) => res.send(result))
+      .catch((err) => res.send(err));
+  }
+  allInquiry(req, res) {
+    db.inquiries
+      .findAll({ include: [db.packages, db.users]})
+      .then((result) => res.send(result))
+      .catch((err) => res.send(err));
   }
 }
 //* export class Users for Routing API

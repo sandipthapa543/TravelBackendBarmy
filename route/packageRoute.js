@@ -9,7 +9,7 @@ routes.get("/activity/:slug", package.singleActivity);
 routes.get("/activity", package.allActivity);
 
 routes
-  .route("/single/:id")
+  .route("/single/:slug")
   .get(package.onePackage)
   
 
