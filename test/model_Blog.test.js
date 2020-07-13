@@ -29,7 +29,9 @@ describe("User adding blog", () => {
     //manaul values
     return db.blogs
       .create({
+        id: 1,
         Title: "Mt.Everest",
+        Slug: "mt-everest",
         Contents: "How_to_travel?",
         Image: "BaseCamp",
         user_id: 112,
@@ -37,11 +39,22 @@ describe("User adding blog", () => {
       })
       .then((result) => {
         assert.equal(result.Title, "Mt.Everest");
+        expect(result.id).to.equal(1);
         expect(result.Title).to.equal("Mt.Everest");
+        expect(result.Slug).to.equal("mt-everest");
         expect(result.Contents).to.equal("How_to_travel?");
         expect(result.Image).to.equal("BaseCamp");
         expect(result.user_id).to.equal(112);
         expect(result.Likes).to.equal("1000");
       });
+  });
+});
+
+describe("Delete blog", () => {
+  it("It should delete blogs", () => {
+    db.blogs.destroy({
+      where: { id: 1 },
+      // truncate: true,
+    });
   });
 });
