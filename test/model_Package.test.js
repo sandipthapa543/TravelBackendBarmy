@@ -25,7 +25,7 @@ db.sequelize.sync();
 
 describe("Admin add Packages", () => {
   //Package test
-  it("Should add the packages,", () => {
+  it("Should add the Packages,", () => {
     //manaul values
     return db.package
       .create({
@@ -67,5 +67,24 @@ describe("Admin add Packages", () => {
         expect(result.Image).to.equal("imz");
         expect(result.Slug).to.equal("hiking");
       });
+  });
+  it("Should update the Package", () => {
+    db.package.update(
+      {
+        Package_Name: "Travel",
+      },
+      {
+        where: { id: 18 },
+        returning: true,
+        plain: true,
+      }
+    );
+  });
+
+  it("Should delete the Package", () => {
+    db.package.destroy({
+      where: { id: 21 },
+      // truncate: true,
+    });
   });
 });
