@@ -30,6 +30,7 @@ describe("Register TDD", () => {
     // .
     return db.users
       .create({
+        id: 1,
         First_Name: "Om Krishna",
         Last_Name: "Thapa",
         Email: "othapa@gmail.com",
@@ -40,6 +41,7 @@ describe("Register TDD", () => {
       })
       .then((result) => {
         assert.equal(result.First_Name, "Om Krishna");
+        assert.equal(result.id, 1);
         expect(result.First_Name).to.equal("Om Krishna");
         expect(result.Last_Name).to.equal("Thapa");
         expect(result.Email).to.equal("othapa@gmail.com");
@@ -53,7 +55,10 @@ describe("Register TDD", () => {
 
 describe("Empty the table", () => {
   it("It should clean the database", () => {
-    return db.sequelize.sync({ force: true });
+    db.users.destroy({
+      where: { id: 1 },
+      // truncate: true,
+    });
   });
 });
 
@@ -70,3 +75,4 @@ describe("Login TDD", () => {
       });
   });
 });
+
