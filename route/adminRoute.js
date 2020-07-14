@@ -102,15 +102,9 @@ routes.route("/package/:id").patch(admin.updatePackage)
 routes.post(
   "/activity",
   img.activityImage,
-  validateSomeFields(),
-  (req, res) => {
-    const error = validationResult(req); //* field validation request
 
-    if (!error.isEmpty()) {
-      return res.status(400).json(error.array());
-    }
-    admin.addActivity(req, res);
-  }
+    admin.addActivity
+
 );
 
 routes.put('/:id',admin.updateActivity);

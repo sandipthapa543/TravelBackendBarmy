@@ -37,11 +37,11 @@ class Admin {
 
   addActivity(req, res) {
     var newAct = {
-      Activity_Name: req.body.name,
-      Slug: slugify(req.body.name, {
+      Activity_Name: req.body.Activity_Name,
+      Slug: slugify(req.body.Activity_Name, {
         lower: true,
       }),
-      Contents: req.body.description,
+      Contents: req.body.Contents,
       Image: req.file.filename,
     };
 
