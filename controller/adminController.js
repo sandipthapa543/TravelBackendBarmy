@@ -5,24 +5,24 @@ class Admin {
   addPackage(req, res) {
     console.log(req.body);
     var pack = {
-      Package_Name: req.body.name,
-      Slug: slugify(req.body.name, {
+      Package_Name: req.body.Package_Name,
+      Slug: slugify(req.body.Package_Name, {
         lower: true,
       }),
-      Days: req.body.days,
-      Price: req.body.price,
-      Includes: req.body.includes,
-      Excludes: req.body.excludes,
-      Itinerary: req.body.itinerary,
-      Difficulty_level: req.body.difficulty_level,
-      Description: req.body.description,
-      Country: req.body.country,
-      Best_season: req.body.best_season,
-      activityId: req.body.activity_id,
-      Accomodation: req.body.accomodation,
-      Highest_point: req.body.highest_point,
-      Starting_point: req.body.starting_point,
-      Gears_required: req.body.gears_required,
+      Days: req.body.Days,
+      Price: req.body.Price,
+      Includes: req.body.Includes,
+      Excludes: req.body.Excludes,
+      Itinerary: req.body.Itinerary,
+      Difficulty_level: req.body.Difficulty_level,
+      Description: req.body.Description,
+      Country: req.body.Country,
+      Best_season: req.body.Best_season,
+      activityId: req.body.activityId,
+      Accomodation: req.body.Accomodation,
+      Highest_point: req.body.Highest_point,
+      Starting_point: req.body.Starting_point,
+      Gears_required: req.body.Gears_required,
       Image: req.file.filename,
     };
     db.packages

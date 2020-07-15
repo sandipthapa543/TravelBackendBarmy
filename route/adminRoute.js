@@ -8,57 +8,57 @@ const admin = new adminController();
 
 const validateSomeFields = () => [
   //* Package name validation
-  check("name")
+  check("Package_Name")
     .notEmpty()
     .withMessage("Please enter Package Name")
     .isLength({ min: 3 })
     .withMessage("Name must contain atleast 3 alphabets"),
 
   //* description validation
-  check("description").notEmpty().withMessage("Please enter description"),
+  check("Description").notEmpty().withMessage("Please enter description"),
 ];
 
 const validateAllFields = () => [
   //* Days validation
-  check("days")
+  check("Days")
     .notEmpty()
     .withMessage("Please enter days")
     .isNumeric()
     .withMessage("Days must contain digits"),
 
   //* Price validation
-  check("price")
+  check("Price")
     .notEmpty()
     .withMessage("Please enter price")
     .isNumeric()
     .withMessage("Price must contain digits only"),
 
   //* Package name valaidation
-  check("includes").notEmpty().withMessage("Please enter includes"),
+  check("Includes").notEmpty().withMessage("Please enter includes"),
 
   //* excludes validation
-  check("excludes").notEmpty().withMessage("Please enter excludes"),
+  check("Excludes").notEmpty().withMessage("Please enter excludes"),
 
   //* itinerary  validation
-  check("itinerary").notEmpty().withMessage("Please enter itinerary"),
+  check("Itinerary").notEmpty().withMessage("Please enter itinerary"),
 
   //* difficulty_level validation
-  check("difficulty_level")
+  check("Difficulty_level")
     .notEmpty()
     .withMessage("Please enter difficulty_level")
     .isNumeric()
     .withMessage("Enter 1-5 for difficulty level"),
 
   //* country name validation
-  check("country").notEmpty().withMessage("Please enter Country Name"),
+  check("Country").notEmpty().withMessage("Please enter Country Name"),
 
   //* best_season validation
-  check("best_season").notEmpty().withMessage("Please enter best_season"),
+  check("Best_season").notEmpty().withMessage("Please enter best_season"),
   // .isLength({ min: 3 })
   // .withMessage("Name must contain atleast 3 alphabets"),
 
   //* activity_id validation
-  check("activity_id")
+  check("activityId")
     .notEmpty()
     .withMessage("Please enter activity_id")
     .isNumeric()
@@ -67,16 +67,16 @@ const validateAllFields = () => [
   // .withMessage("Name must contain atleast 3 alphabets"),
 
   //* accomodation validation
-  check("accomodation").notEmpty().withMessage("Please enter accomodation"),
+  check("Accomodation").notEmpty().withMessage("Please enter accomodation"),
 
   //* highest_point validation
-  check("highest_point").notEmpty().withMessage("Please enter highest_point"),
+  check("Highest_point").notEmpty().withMessage("Please enter highest_point"),
 
   //*starting_point validation
-  check("starting_point").notEmpty().withMessage("Please enter starting_point"),
+  check("Starting_point").notEmpty().withMessage("Please enter starting_point"),
 
   //* gears_required validation
-  check("gears_required").notEmpty().withMessage("Please enter gears_required"),
+  check("Gears_required").notEmpty().withMessage("Please enter gears_required"),
 ];
 
 //* post  form api router
