@@ -10,7 +10,7 @@ const app = express();
 const adminRoute = require("./route/adminRoute");
 const packageRoute = require("./route/packageRoute");
 const blogRoute = require("./route/blogRoute");
-
+const blogCmtRoute = require("./route/blogcmtsRoute");
 const db = require("./model");
 db.sequelize.sync();
 
@@ -40,6 +40,7 @@ app.use("/user", userRoute);
 app.use("/admin", adminRoute);
 app.use("/package", packageRoute);
 app.use("/blog", blogRoute);
+app.use("/blogcmt", blogCmtRoute);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

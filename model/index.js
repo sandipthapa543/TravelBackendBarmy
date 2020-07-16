@@ -25,7 +25,9 @@ db.users = require("./user.model.js")(sequelize, Sequelize);
 db.packages = require("./package.model.js")(sequelize, Sequelize);
 db.activities = require("./activities.model.js")(sequelize, Sequelize);
 db.blogs = require("./blog.model")(sequelize, Sequelize);
+
 db.inquiries = require("./inquiry.model")(sequelize, Sequelize);
+db.blogcomment = require("./blogcmts.model")(sequelize, Sequelize);
 
 db.activities.hasMany(db.packages, {foreignKey: 'activityId'});
 db.packages.belongsTo(db.activities, {foreignKey: 'activityId',onDelete: 'CASCADE', hooks:true});
