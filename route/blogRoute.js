@@ -14,6 +14,11 @@ const validateAllFields = () => [
   check("contents").notEmpty().withMessage("Please enter content"),
 ];
 
+const validateComments = () => [
+  // comment validation
+  check("Comments").notEmpty().withMessage("Please enter comment"),
+];
+
 routes
   .route("/add")
   .post(auth.verifyUser, img.blogImage, validateAllFields(), (req, res) => {
@@ -38,5 +43,18 @@ routes
 //   }
 //   blogDetails.addBlog(req, res)
 // })
+
+routes
+  .route("/comment")
+  .post(auth.verifyUser, validateComments(), (req, res) => {
+    const error = validationResult(req); //* field validation request
+
+    if (!error.isEmpty()) {
+      return res.status(400).json(error.array());
+    }
+    blogDetails.addBlogComment(req, res);
+  })
+  routes.get("/comment/:id",blogDetails.allBlogComment);
+
 
 module.exports = routes;

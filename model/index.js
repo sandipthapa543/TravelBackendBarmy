@@ -29,16 +29,23 @@ db.blogs = require("./blog.model")(sequelize, Sequelize);
 db.inquiries = require("./inquiry.model")(sequelize, Sequelize);
 db.blogcomment = require("./blogcmts.model")(sequelize, Sequelize);
 
-db.activities.hasMany(db.packages, {foreignKey: 'activityId'});
-db.packages.belongsTo(db.activities, {foreignKey: 'activityId',onDelete: 'CASCADE', hooks:true});
+// 1 activity has many packages but 1 package belongs to single activity so 1-many relationship.
+db.activities.hasMany(db.packages, {foreignKey: 'activityId',onDelete: 'CASCADE', hooks:true});
+db.packages.belongsTo(db.activities, {foreignKey: 'activityId'});
 
-db.users.hasMany(db.blogs, {foreignKey: 'user_id'});
+db.users.hasMany(db.blogs, {foreignKey: 'user_id',onDelete: 'CASCADE', hooks:true});
 db.blogs.belongsTo(db.users, {foreignKey: 'user_id'});
 
+db.users.hasMany(db.inquiries, {foreignKey: 'user_id',onDelete: 'CASCADE', hooks:true})
 db.inquiries.belongsTo(db.users, {foreignKey: 'user_id'})
-db.users.hasMany(db.inquiries, {foreignKey: 'user_id'})
 
+db.packages.hasMany(db.inquiries, {foreignKey: 'package_id',onDelete: 'CASCADE', hooks:true})
 db.inquiries.belongsTo(db.packages, {foreignKey: 'package_id'})
-db.packages.hasMany(db.inquiries, {foreignKey: 'package_id'})
+
+db.users.hasMany(db.blogcomment, {foreignKey: 'user_id',onDelete: 'CASCADE', hooks:true})
+db.blogcomment.belongsTo(db.users, {foreignKey: 'user_id'})
+
+db.packages.hasMany(db.blogcomment, {foreignKey: 'blog_id',onDelete: 'CASCADE', hooks:true})
+db.blogcomment.belongsTo(db.packages, {foreignKey: 'blog_id'})
 
 module.exports = db;
