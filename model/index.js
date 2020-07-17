@@ -45,7 +45,7 @@ db.inquiries.belongsTo(db.packages, {foreignKey: 'package_id'})
 db.users.hasMany(db.blogcomment, {foreignKey: 'user_id',onDelete: 'CASCADE', hooks:true})
 db.blogcomment.belongsTo(db.users, {foreignKey: 'user_id'})
 
-db.packages.hasMany(db.blogcomment, {foreignKey: 'blog_id',onDelete: 'CASCADE', hooks:true})
-db.blogcomment.belongsTo(db.packages, {foreignKey: 'blog_id'})
+db.blogs.hasMany(db.blogcomment, {foreignKey: 'blog_id',onDelete: 'CASCADE', hooks:true})
+db.blogcomment.belongsTo(db.blogs, {foreignKey: 'blog_id'})
 
 module.exports = db;
