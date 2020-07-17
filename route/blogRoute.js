@@ -8,10 +8,10 @@ const blogDetails = new blogController();
 
 const validateAllFields = () => [
   // Title validation
-  check("title").notEmpty().withMessage("Please enter your title"),
+  check("Title").notEmpty().withMessage("Please enter your title"),
 
   //Content validation
-  check("contents").notEmpty().withMessage("Please enter content"),
+  check("Contents").notEmpty().withMessage("Please enter content"),
 ];
 
 const validateComments = () => [

@@ -5,14 +5,14 @@ class Blog {
   addBlog(req, res) {
     
     var log = {
-      Title: req.body.title,
-      Slug: slugify(req.body.title, {
+      Title: req.body.Title,
+      Slug: slugify(req.body.Title, {
         lower: true,
       }),
-      Contents: req.body.contents,
+      Contents: req.body.Contents,
       Image: req.file.filename,
       user_id: req.user.id,
-      Likes: req.body.likes,
+      Likes: req.body.Likes,
     };
     db.blogs
       .create(log)
