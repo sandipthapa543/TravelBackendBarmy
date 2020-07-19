@@ -62,7 +62,7 @@ routes.post("/register", validateAllFields(), (req, res) => {
   const error = validationResult(req); //* field validation request
 
   if (!error.isEmpty()) {
-    return res.status(400).json(error.array());
+    return res.status(422).json(error.array());
   }
   userDetails.registerUser(req, res);
 });
