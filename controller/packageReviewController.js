@@ -24,3 +24,4 @@ class PackageReview {
       .catch((err) => res.send(err));
   }
 }
+module.exports = PackageReview;
