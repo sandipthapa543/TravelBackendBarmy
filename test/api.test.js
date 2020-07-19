@@ -152,3 +152,48 @@ describe("/POST Blog Comment", () => {
       });
   });
 });
+
+// Api test, POST package review
+describe("/POST Package review", () => {
+  it("Should add review about packages", (done) => {
+    const data = {
+      package_id: 1,
+      Rating: "Good",
+      Contents: "Good package",
+    };
+    chai
+      .request(app)
+      .post("/package/review")
+      .set("Authorization", "Bearer " + token)
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(401);
+        res.body.should.be.a("object");
+        res.body.should.have.property("message");
+        expect(res.body.message).to.contain("Rating must be number.");
+        done();
+      });
+  });
+});
+
+// Api test, POST package review
+describe("/POST Package review", () => {
+  it("Should add review about packages", (done) => {
+    const data = {
+      package_id: 1,
+      Rating: 4,
+      Contents: "Good package",
+    };
+    chai
+      .request(app)
+      .post("/package/review")
+      .set("Authorization", "Bearer " + token)
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.be.a("object");
+        res.body.should.have.property("message");
+        done();
+      });
+  });
+});
