@@ -7,8 +7,11 @@ const PackReview = new PackageReviewController();
 
 const validateAllFields = () => [
   // rating validation
-  check("rating").notEmpty().withMessage("Please enter contents"),
-  isNumeric().withMessage("Rating must contain number"),
+  check("rating")
+    .notEmpty()
+    .withMessage("Please enter contents")
+    .isNumeric()
+    .withMessage("Rating must contain number"),
 
   //Content validation
   check("contents").notEmpty().withMessage("Content Please"),
