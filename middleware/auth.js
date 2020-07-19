@@ -7,7 +7,8 @@ exports.verifyUser = (req, res, next) => {
     // let err = new Error("Bearer token is not set!");
     // err.status = 401;
     // return next(err);
-    res.status(401).send({ status: "Failed", message: "Please Login first"})
+    res.status(401).send({ status: "Failed", message: "Please Login first" });
+    return;
   }
   let token = authHeader.split(" ")[1];
   // console.log(token)
@@ -15,11 +16,15 @@ exports.verifyUser = (req, res, next) => {
   try {
     data = jwt.verify(token, process.env.SECRET);
   } catch (err) {
-    res.status(401).send({ status: "Failed", message: "Token invalid. Login again."})
+    res
+      .status(401)
+      .send({ status: "Failed", message: "Token invalid. Login again." });
+    return;
   }
 
-  db.users.findByPk(data.id)
-    .then(user => {
+  db.users
+    .findByPk(data.id)
+    .then((user) => {
       req.user = user;
       next();
     })
