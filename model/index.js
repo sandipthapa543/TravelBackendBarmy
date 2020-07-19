@@ -26,4 +26,6 @@ db.packages = require("./package.model.js")(sequelize, Sequelize);
 db.activities = require("./activities.model.js")(sequelize, Sequelize);
 db.blogs = require("./blog.model")(sequelize, Sequelize);
 db.blogcomment = require("./blogcmts.model")(sequelize, Sequelize);
+db.packagereview = require("./package_review.model")(sequelize, Sequelize);
+
 module.exports = db;
