@@ -39,6 +39,30 @@ class Package {
       })
       .catch((err) => res.send(err));
   }
+
+  addPackageReview(req, res) {
+    var packreview = {
+      package_id: req.params.id,
+      rating: req.body.rating,
+      review: req.body.review,
+      user_id: req.user.id,
+    };
+    db.review
+      .create(packreview)
+      .then((review) => {
+        res
+          .status(201)
+          .json({ message: "Package review added successfully", review });
+      })
+      .catch((err) => res.send(err));
+  }
+
+  allPackageReview(req, res) {
+    db.review
+      .findAll({where: {package_id: req.params.id}})
+      .then((result) => res.status(200).send(result))
+      .catch((err) => res.send(err));
+  }
 }
 
 module.exports = Package;
