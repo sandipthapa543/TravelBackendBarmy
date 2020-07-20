@@ -57,10 +57,24 @@ class Package {
       .catch((err) => res.send(err));
   }
 
-  allPackageReview(req, res) {
-    db.review
-      .findAll({where: {package_id: req.params.id}})
-      .then((result) => res.status(200).send(result))
+  async allPackageReview(req, res) {
+    const data = await db.review.findOne({
+      where: { package_id: req.params.id },
+      attributes: [
+        [db.Sequelize.fn("count", db.Sequelize.col("rating")), "count"],
+        [db.Sequelize.fn("sum", db.Sequelize.col("rating")), "add"],
+      ],
+    });
+
+    const sum = Number(data.dataValues.add)
+    const total = Number(data.dataValues.count)
+    const avg = Math.ceil(((sum/total)*2))/2
+    
+    db.review.findAll({
+        where: { package_id: req.params.id },
+        include: db.users
+      })
+      .then((result) => res.status(200).send({total: total, average: avg, reviews: result}))
       .catch((err) => res.send(err));
   }
 }
