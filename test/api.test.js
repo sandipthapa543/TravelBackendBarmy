@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 
 // Make sure to change the given fields, Email and Password!
 const loginData = {
-  Email: "sfsf@gmail.com",
+  Email: "samyamdw@gmail.com",
   Password: "password",
 };
 
@@ -154,23 +154,23 @@ describe("/POST Blog Comment", () => {
 });
 
 // Api test, POST package review
-describe("/POST Package review", () => {
-  it("Should add review about packages", (done) => {
+describe("/POST Validate package review", () => {
+  it("Should provide validation message", (done) => {
     const data = {
-      package_id: 1,
-      Rating: "Good",
-      Contents: "Good package",
+      rating: "Good",
+      review: "Good package",
     };
     chai
       .request(app)
-      .post("/package/review")
+      .post("/package/review/1")
       .set("Authorization", "Bearer " + token)
       .send(data)
       .end((err, res) => {
-        res.should.have.status(401);
-        res.body.should.be.a("object");
-        res.body.should.have.property("message");
-        expect(res.body.message).to.contain("Rating must be number.");
+        res.should.have.status(400);
+        res.body.should.be.a("Array");
+        // console.log(res.body[0].msg);
+        res.body[0].should.have.property("msg");
+        expect(res.body[0].msg).to.contain("Rating must contain number");
         done();
       });
   });
@@ -180,19 +180,17 @@ describe("/POST Package review", () => {
 describe("/POST Package review", () => {
   it("Should add review about packages", (done) => {
     const data = {
-      package_id: 1,
-      Rating: 4,
-      Contents: "Good package",
+      rating: 4,
+      review: "Good package",
     };
     chai
       .request(app)
-      .post("/package/review")
+      .post("/package/review/1")
       .set("Authorization", "Bearer " + token)
       .send(data)
       .end((err, res) => {
         res.should.have.status(201);
         res.body.should.be.a("object");
-        res.body.should.have.property("message");
         done();
       });
   });

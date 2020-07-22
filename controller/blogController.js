@@ -34,7 +34,7 @@ class Blog {
   }
 
   updateBlog(req,res){
-    db.blogs.update(req.body,{where:{id:req.params.id}},{include:db.users})
+    db.blogs.update(req.body,{where:{id:req.params.id},include:db.users})
         .then(result => res.status(200).send(result))
         .catch(err=> res.send(err))
   }
@@ -55,10 +55,9 @@ class Blog {
 
   allBlogComment(req, res) {
     db.blogcomment
-      .findAll({where: {blog_id: req.params.id}})
+      .findAll({where: {blog_id: req.params.id},include: db.users})
       .then((result) => res.status(200).send(result))
       .catch((err) => res.send(err));
   }
-
 }
 module.exports = Blog;

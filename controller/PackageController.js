@@ -63,18 +63,20 @@ class Package {
       attributes: [
         [db.Sequelize.fn("count", db.Sequelize.col("rating")), "count"],
         [db.Sequelize.fn("sum", db.Sequelize.col("rating")), "add"],
+        [db.Sequelize.fn("avg", db.Sequelize.col("rating")), "average"],
       ],
     });
 
     const sum = Number(data.dataValues.add)
     const total = Number(data.dataValues.count)
     const avg = Math.ceil(((sum/total)*2))/2
+    const avgNew = Number(data.dataValues.average)
     
     db.review.findAll({
         where: { package_id: req.params.id },
         include: db.users
       })
-      .then((result) => res.status(200).send({total: total, average: avg, reviews: result}))
+      .then((result) => res.status(200).send({total: total, average: avg, averageNew: avgNew, reviews: result}))
       .catch((err) => res.send(err));
   }
 }
