@@ -1,11 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
     const Inquiry = sequelize.define("inquiry", {
-      id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
-      },
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false
