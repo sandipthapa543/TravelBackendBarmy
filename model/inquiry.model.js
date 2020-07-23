@@ -15,6 +15,11 @@ module.exports = (sequelize, Sequelize) => {
       Message: {
         type: Sequelize.TEXT,
         allowNull: false,
+      },
+      Status:{
+        type:   Sequelize.ENUM,
+        defaultValue:'unread',
+        values: ['unread', 'read', 'deleted']
       }
     });
     return Inquiry;

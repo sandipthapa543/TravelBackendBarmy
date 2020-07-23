@@ -23,14 +23,18 @@ class Blog {
   }
 
   allBlogs(req,res) {
-    db.blogs.findAll({include: db.users}).then(result => res.status(200).send(result)).catch(err=>res.send(err))
+    db.blogs.findAll({include: db.users}).
+    then(result => res.status(200).send(result))
+        .catch(err=>res.send(err))
   }
 
   oneBlog(req,res) {
-    db.blogs.findOne({where: {Slug: req.params.slug}, include: db.users}).then(result => res.status(201).send(result)).catch(err=>res.send(err))
+    db.blogs.findOne({where: {Slug: req.params.slug}, include: db.users}).
+    then(result => res.status(201).send(result)).catch(err=>res.send(err))
   }
   singleBlog(req,res) {
-    db.blogs.findOne({where: {id: req.params.id}, include: db.users}).then(result => res.status(201).send(result)).catch(err=>res.send(err))
+    db.blogs.findOne({where: {id: req.params.id}, include: db.users}).
+    then(result => res.status(201).send(result)).catch(err=>res.send(err))
   }
 
   updateBlog(req,res){
