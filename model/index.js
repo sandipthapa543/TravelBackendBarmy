@@ -28,6 +28,7 @@ db.blogs = require("./blog.model")(sequelize, Sequelize);
 db.inquiries = require("./inquiry.model")(sequelize, Sequelize);
 db.blogcomment = require("./blogcmts.model")(sequelize, Sequelize);
 db.review = require("./review.model")(sequelize,Sequelize);
+db.booking =require("./booking.model")(Sequelize,sequelize);
 
 // 1 activity has many packages but 1 package belongs to single activity so 1-many relationship.
 db.activities.hasMany(db.packages, {foreignKey: 'activityId',onDelete: 'CASCADE', hooks:true});
@@ -53,5 +54,12 @@ db.review.belongsTo(db.packages,{foreignKey:'package_id'});
 
 db.users.hasMany(db.review,{foreignKey:'user_id',onDelete:'CASCADE',hooks:true});
 db.review.belongsTo(db.users,{foreignKey:'user_id'});
+
+db.packages.hasMany(db.booking,{foreignKey:'package_id', onDelete:'CASCADE',hooks:true})
+db.booking.belongsTo(db.packages,{foreignKey:'package_id'})
+
+db.users.hasMany(db.booking,{foreignKey:'user_id',onDelete:'CASCADE', hooks:true})
+db.booking.belongsTo(db.users,{foreignKey:'user_id'})
+
 
 module.exports = db;
