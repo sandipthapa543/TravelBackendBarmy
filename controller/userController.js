@@ -111,6 +111,12 @@ class Users {
         .then((result) => res.send(result))
       .catch((err) => res.send(err));
   }
+  updateInquiry(req,res){
+    db.inquiries
+        .update(req.body,{where:{id:req.params.id},include:[db.packages,db.users]})
+        .then((result)=>res.send(result))
+        .catch((err)=>res.send(err));
+  }
 }
 //* export class Users for Routing API
 module.exports = Users;
