@@ -92,6 +92,12 @@ class Users {
     }
   }
 
+  updateUser(req,res){
+    db.users.update(req.body,{where:{id:req.params.id}}).then((result)=>{
+      res.status.send(result);
+    }).catch((err)=>res.send(err));
+  }
+
   postInquiry(req, res) {
     db.inquiries
       .create({
