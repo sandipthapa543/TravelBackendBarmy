@@ -76,7 +76,7 @@ class Package {
         where: { package_id: req.params.id },
         include: db.users
       })
-      .then((result) => res.status(200).send({total: total, average: avg, averageNew: avgNew, reviews: result}))
+      .then((result) => res.status(200).send({total: total, average: avg, avgval: avgNew, reviews: result}))
       .catch((err) => res.send(err));
   }
 }

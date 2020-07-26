@@ -77,6 +77,6 @@ routes
   .post(auth.verifyUser, userDetails.postInquiry)
   .get(auth.verifyUser, userDetails.myInquiry);
 
-routes.get("/inquiry/all", auth.verifyUser, userDetails.myInquiry);
+routes.get("/inquiry/all", auth.verifyUser, userDetails.allInquiry);
 routes.patch("/inquiry/:id",auth.verifyUser,userDetails.updateInquiry);
 module.exports = routes;

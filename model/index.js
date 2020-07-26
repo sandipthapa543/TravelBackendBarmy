@@ -28,7 +28,7 @@ db.blogs = require("./blog.model")(sequelize, Sequelize);
 db.inquiries = require("./inquiry.model")(sequelize, Sequelize);
 db.blogcomment = require("./blogcmts.model")(sequelize, Sequelize);
 db.review = require("./review.model")(sequelize,Sequelize);
-db.booking =require("./booking.model")(Sequelize,sequelize);
+db.booking =require("./booking.model")(sequelize,Sequelize);
 
 // 1 activity has many packages but 1 package belongs to single activity so 1-many relationship.
 db.activities.hasMany(db.packages, {foreignKey: 'activityId',onDelete: 'CASCADE', hooks:true});

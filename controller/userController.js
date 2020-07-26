@@ -107,6 +107,12 @@ class Users {
   }
   myInquiry(req, res) {
     db.inquiries
+      .findAll({where: {user_id: req.user.id}, include: [db.packages, db.users]})
+        .then((result) => res.send(result))
+      .catch((err) => res.send(err));
+  }
+  allInquiry(req, res) {
+    db.inquiries
       .findAll({ include: [db.packages, db.users]})
         .then((result) => res.send(result))
       .catch((err) => res.send(err));
