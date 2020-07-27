@@ -56,5 +56,7 @@ routes
   })
   routes.get("/comment/:id",blogDetails.allBlogComment);
 
+routes.delete("/:id",blogDetails.deleteBlog);
+
 
 module.exports = routes;

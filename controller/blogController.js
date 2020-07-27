@@ -63,5 +63,10 @@ class Blog {
       .then((result) => res.status(200).send(result))
       .catch((err) => res.send(err));
   }
+  deleteBlog(req,res){
+    db.blogs.destroy({where:{id:req.params.id}})
+        .then((result)=>res.status(200).send(result))
+        .catch((err)=> res.send(err));
+  }
 }
 module.exports = Blog;
