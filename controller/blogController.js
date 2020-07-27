@@ -65,7 +65,7 @@ class Blog {
   }
   deleteBlog(req,res){
     db.blogs.destroy({where:{id:req.params.id}})
-        .then((result)=>res.status(200).send(result))
+        .then((result)=>res.send(result))
         .catch((err)=> res.send(err));
   }
 }
