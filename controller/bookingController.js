@@ -10,7 +10,20 @@ class Booking{
 
         }
         db.booking.create(booking)
-            .then((result)=>res.status(422).send(result))
+            .then((result)=>res.status(201).send(result))
+            .catch((error)=>res.send(error));
+    }
+
+    getALL(req,res){
+        db.booking.findAll({include:[db.packages,db.users]})
+            .then((result)=>res.status(201).send(result))
+            .catch((error)=>res.send(error));
+    }
+
+    updateStatus(req,res){
+        db.booking
+            .update(req.body,{where:{id:req.params.id},include:[db.packages,db.users]})
+            .then((result)=>res.status(200).send(result))
             .catch((error)=>res.send(error));
     }
 

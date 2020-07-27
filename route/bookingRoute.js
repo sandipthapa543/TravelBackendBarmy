@@ -6,6 +6,8 @@ const bookingController =require("../controller/bookingController");
 const bookingDetails = new bookingController();
 
 
-routes.post("/",bookingDetails.postBooking);
+routes.post("/",auth.verifyUser,bookingDetails.postBooking);
+routes.get("/",bookingDetails.getALL);
+routes.patch("/",bookingDetails.updateStatus);
 
 module.exports=routes
