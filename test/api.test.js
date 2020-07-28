@@ -182,15 +182,17 @@ describe("-/Package", () => {
 
 // GET Blog
 describe("-/Blog", () => {
-  it("Should GET all blogs", (done) => {
-    chai
-      .request(app)
-      .get("/blog/all")
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a("Array");
-        done();
-      });
+  describe("/GET Blog", () => {
+    it("Should GET all blogs", (done) => {
+      chai
+        .request(app)
+        .get("/blog/all")
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("Array");
+          done();
+        });
+    });
   });
 
   //Api test, POST blog comment
@@ -250,15 +252,17 @@ describe("-/Blog", () => {
 
 // GET all bookings
 describe("-/Booking", () => {
-  it("Should GET all bookings", (done) => {
-    chai
-      .request(app)
-      .get("/booking/")
-      .end((err, res) => {
-        res.should.have.status(201);
-        res.body.should.be.a("Array");
-        done();
-      });
+  describe("/GET Bookings", () => {
+    it("Should GET all bookings", (done) => {
+      chai
+        .request(app)
+        .get("/booking/")
+        .end((err, res) => {
+          res.should.have.status(201);
+          res.body.should.be.a("Array");
+          done();
+        });
+    });
   });
 
   // POST the bookings
