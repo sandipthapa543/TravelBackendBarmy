@@ -23,20 +23,22 @@ db.sequelize = sequelize;
 db.blogcomments = require("../model/blogcmts.model")(sequelize, Sequelize);
 db.sequelize.sync();
 
-describe("Add Blog Comments user", () => {
-  //blog comment test
-  it("Should add the blog comment", () => {
-    return db.blogcomments
-      .create({
-        blog_id: 1,
-        user_id: 3,
-        Comments: "Travel&Tourism",
-      })
-      .then((result) => {
-        assert.equal(result.blog_id, 1);
-        expect(result.blog_id).to.equal(1);
-        expect(result.user_id).to.equal(3);
-        expect(result.Comments).to.equal("Travel&Tourism");
-      });
+describe("1.Blog Comment", () => {
+  describe("Add Blog Comments user", () => {
+    //blog comment test
+    it("Should add the blog comment", () => {
+      return db.blogcomments
+        .create({
+          blog_id: 1,
+          user_id: 3,
+          Comments: "Travel&Tourism",
+        })
+        .then((result) => {
+          assert.equal(result.blog_id, 1);
+          expect(result.blog_id).to.equal(1);
+          expect(result.user_id).to.equal(3);
+          expect(result.Comments).to.equal("Travel&Tourism");
+        });
+    });
   });
 });
