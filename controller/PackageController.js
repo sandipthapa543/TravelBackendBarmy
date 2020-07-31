@@ -67,18 +67,83 @@ class Package {
       ],
     });
 
-    const sum = Number(data.dataValues.add)
-    const total = Number(data.dataValues.count)
-    const avg = Math.ceil(((sum/total)*2))/2
-    const avgNew = Number(data.dataValues.average)
-    
-    db.review.findAll({
+    const sum = Number(data.dataValues.add);
+    const total = Number(data.dataValues.count);
+    const avg = Math.ceil((sum / total) * 2) / 2;
+    const avgNew = Number(data.dataValues.average);
+
+    db.review
+      .findAll({
         where: { package_id: req.params.id },
-        include: db.users
+        include: db.users,
       })
-      .then((result) => res.status(200).send({total: total, average: avg, avgval: avgNew, reviews: result}))
+      .then((result) =>
+        res
+          .status(200)
+          .send({ total: total, average: avg, avgval: avgNew, reviews: result })
+      )
       .catch((err) => res.send(err));
   }
-}
 
+  async allReviews(req, res) {
+    await db.review.findAll({
+      attributes: ['package_id',
+        [db.Sequelize.fn("count", db.Sequelize.col("rating")), "count"],
+        [db.Sequelize.fn("sum", db.Sequelize.col("rating")), "add"],
+        [db.Sequelize.fn("avg", db.Sequelize.col("rating")), "average"],
+      ],
+      group : 'review.package_id',
+      // where: {package_id: 1}
+    }).then(result => {
+      for (var i=0; i<result.length; i++){
+        result[i].dataValues.average = roundHalf(result[i].dataValues.average)
+      }
+      res.status(200).send(result)
+    })
+    // const sum = Number(data.dataValues.add);
+    // const total = Number(data.dataValues.count);
+    // const avg = Math.ceil((sum / total) * 2) / 2;
+    // const avgNew = Number(data.dataValues.average);
+
+    // db.review
+    //   .findAll()
+    //   .then((result) =>
+    //     res
+    //       .status(200)
+    //       .send({ total: total, average: avg, avgval: avgNew })
+    //   )
+    //   .catch((err) => res.send(err));
+  }
+  // async allReviews(req, res) {
+  //   await db.review.findAll({
+  //     attributes: ['package_id',
+  //       [db.Sequelize.fn("count", db.Sequelize.col("rating")), "count"],
+  //       [db.Sequelize.fn("sum", db.Sequelize.col("rating")), "add"],
+  //       [db.Sequelize.fn("avg", db.Sequelize.col("rating")), "average"],
+  //     ],
+  //     group : ['review.package_id'],
+  //     raw:true
+  //   }).then(result => {
+  //     result = result.map(r => r.get())
+  //     console.log(result); 
+  //     res.status(200).send(result)
+  //   })
+  //   // const sum = Number(data.dataValues.add);
+  //   // const total = Number(data.dataValues.count);
+  //   // const avg = Math.ceil((sum / total) * 2) / 2;
+  //   // const avgNew = Number(data.dataValues.average);
+
+  //   // db.review
+  //   //   .findAll()
+  //   //   .then((result) =>
+  //   //     res
+  //   //       .status(200)
+  //   //       .send({ total: total, average: avg, avgval: avgNew })
+  //   //   )
+  //   //   .catch((err) => res.send(err));
+  // }
+}
+function roundHalf(num) {
+  return Math.ceil(num*2)/2;
+}
 module.exports = Package;
