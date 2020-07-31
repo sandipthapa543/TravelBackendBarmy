@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
     Status: {
       type: Sequelize.ENUM,
       defaultValue: "pending",
-      values: ["pending", "booked ", "cancel "],
+      values: ["pending", "booked", "cancel"],
     },
     departure_dates: {
       type: Sequelize.DATE,

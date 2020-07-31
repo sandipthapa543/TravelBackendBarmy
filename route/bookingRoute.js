@@ -8,6 +8,6 @@ const bookingDetails = new bookingController();
 
 routes.post("/",auth.verifyUser,bookingDetails.postBooking);
 routes.get("/",bookingDetails.getALL);
-routes.patch("/",bookingDetails.updateStatus);
+routes.patch("/:id",bookingDetails.updateStatus);
 
 module.exports=routes
