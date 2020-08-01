@@ -36,6 +36,7 @@ routes
   })
   .get(package.allPackageReview);
 
-routes.get("/review",package.allReviews);
+routes.get("/review",package.reviewStats);
+routes.get("/allreviews",package.allReviews);
 
 module.exports = routes;

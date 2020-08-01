@@ -1,5 +1,5 @@
 const db = require("../model/index");
-
+const Op = db.Sequelize.Op;
 class Package {
   allPackage(req, res) {
     db.packages
@@ -62,88 +62,54 @@ class Package {
       where: { package_id: req.params.id },
       attributes: [
         [db.Sequelize.fn("count", db.Sequelize.col("rating")), "count"],
-        [db.Sequelize.fn("sum", db.Sequelize.col("rating")), "add"],
         [db.Sequelize.fn("avg", db.Sequelize.col("rating")), "average"],
       ],
     });
 
-    const sum = Number(data.dataValues.add);
     const total = Number(data.dataValues.count);
-    const avg = Math.ceil((sum / total) * 2) / 2;
-    const avgNew = Number(data.dataValues.average);
+    const avg = Number(data.dataValues.average);
 
     db.review
       .findAll({
         where: { package_id: req.params.id },
-        include: db.users,
+        include: { model: db.users, attributes: ["First_Name", "Last_Name"] },
       })
       .then((result) =>
-        res
-          .status(200)
-          .send({ total: total, average: avg, avgval: avgNew, reviews: result })
+        res.status(200).send({ total: total, average: avg, reviews: result })
       )
       .catch((err) => res.send(err));
   }
 
-  async allReviews(req, res) {
-    await db.review.findAll({
-      attributes: ['package_id',
-        [db.Sequelize.fn("count", db.Sequelize.col("rating")), "count"],
-        [db.Sequelize.fn("sum", db.Sequelize.col("rating")), "add"],
-        [db.Sequelize.fn("avg", db.Sequelize.col("rating")), "average"],
-      ],
-      group : 'review.package_id',
-      // where: {package_id: 1}
-    }).then(result => {
-      for (var i=0; i<result.length; i++){
-        result[i].dataValues.average = roundHalf(result[i].dataValues.average)
-      }
-      res.status(200).send(result)
-    })
-    // const sum = Number(data.dataValues.add);
-    // const total = Number(data.dataValues.count);
-    // const avg = Math.ceil((sum / total) * 2) / 2;
-    // const avgNew = Number(data.dataValues.average);
-
-    // db.review
-    //   .findAll()
-    //   .then((result) =>
-    //     res
-    //       .status(200)
-    //       .send({ total: total, average: avg, avgval: avgNew })
-    //   )
-    //   .catch((err) => res.send(err));
+  reviewStats(req, res) {
+    db.review
+      .findAll({
+        attributes: [
+          "package_id",
+          [db.Sequelize.fn("avg", db.Sequelize.col("rating")), "average"],
+        ],
+        group: ["review.package_id"],
+      })
+      .then((result) => {
+        for (let index = 0; index < result.length; index++) {
+          result[index].dataValues.average = Number(
+            result[index].dataValues.average
+          );
+        }
+        res.status(200).send(result);
+      }).catch(err=>res.send(err));
   }
-  // async allReviews(req, res) {
-  //   await db.review.findAll({
-  //     attributes: ['package_id',
-  //       [db.Sequelize.fn("count", db.Sequelize.col("rating")), "count"],
-  //       [db.Sequelize.fn("sum", db.Sequelize.col("rating")), "add"],
-  //       [db.Sequelize.fn("avg", db.Sequelize.col("rating")), "average"],
-  //     ],
-  //     group : ['review.package_id'],
-  //     raw:true
-  //   }).then(result => {
-  //     result = result.map(r => r.get())
-  //     console.log(result); 
-  //     res.status(200).send(result)
-  //   })
-  //   // const sum = Number(data.dataValues.add);
-  //   // const total = Number(data.dataValues.count);
-  //   // const avg = Math.ceil((sum / total) * 2) / 2;
-  //   // const avgNew = Number(data.dataValues.average);
-
-  //   // db.review
-  //   //   .findAll()
-  //   //   .then((result) =>
-  //   //     res
-  //   //       .status(200)
-  //   //       .send({ total: total, average: avg, avgval: avgNew })
-  //   //   )
-  //   //   .catch((err) => res.send(err));
-  // }
-}
-function roundHalf(num) {
-  return Math.ceil(num*2)/2;
+  allReviews(req, res) {
+    db.review.findAll({
+      limit: req.query.limit,
+      include: [
+        {model: db.users, attributes: ['First_Name','Last_Name','Country','City']},
+        {model: db.packages, attributes: ['Package_Name','Slug']}
+      ],
+      attributes: {exclude: ['id','user_id','package_id','createdAt']}
+    })
+    .then((result) => {
+      res.status(200).send(result);
+    }).catch(err=>res.send(err));
+  }
 }
 module.exports = Package;
