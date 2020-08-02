@@ -1,5 +1,5 @@
 const db = require("../model/index");
-const Op = db.Sequelize.Op;
+
 class Package {
   allPackage(req, res) {
     db.packages
@@ -101,6 +101,7 @@ class Package {
   allReviews(req, res) {
     db.review.findAll({
       limit: req.query.limit,
+      where: {rating: {[db.Sequelize.Op.gte]: req.query.where}},
       include: [
         {model: db.users, attributes: ['First_Name','Last_Name','Country','City']},
         {model: db.packages, attributes: ['Package_Name','Slug']}
